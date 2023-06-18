@@ -1,0 +1,66 @@
+/*
+ * Gradle build configuration for specific module / exercise
+ *
+ * For more details take a look at the 'Building Java & JVM projects' chapter in the Gradle
+ * User Manual available at https://docs.gradle.org/7.4.2/userguide/building_java_projects.html
+ */
+// enabled plugins
+plugins {
+    // base java library support (implicit by application plugin)
+    id 'java'
+    // Support for building a CLI application in Java.
+    id 'application'
+    // Support for building and running JavaFX applications
+    id 'org.openjfx.javafxplugin' version  '0.0.13'
+}
+
+// Project/Module information
+description = 'Ticketing System - GUI'
+group 'ch.zhaw.prog2.ticketing'
+version = '2023'
+
+// Dependency configuration
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':common')
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.+'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.9.+'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.+'
+    // Mockito dependencies
+    testImplementation 'org.mockito:mockito-core:5.2.+'
+}
+
+// Test task configuration
+test {
+    useJUnitPlatform()
+}
+
+// Application plugin configuration
+application {
+    // Define the main class for the application.
+    mainClass = 'ch.zhaw.prog2.ticketing.gui.TicketMonitorApplication'
+}
+
+// JavaFX plugin configuration
+javafx {
+    version = '17.0.6'
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
+}
+
+// Java plugin configuration
+java {
+    // By default the Java version of the gradle process is used as source/target version.
+    // This can be overridden, to ensure a specific version. Enable only if required.
+    sourceCompatibility = JavaVersion.VERSION_17 // ensure Java source code compatibility
+    // targetCompatibility = JavaVersion.VERSION_17 // version of the created byte-code
+
+    // Java compiler specific options
+    compileJava {
+        // source files should be UTF-8 encoded
+        options.encoding = 'UTF-8'
+        // for more options see https://docs.gradle.org/current/dsl/org.gradle.api.tasks.compile.CompileOptions.html
+    }
+}

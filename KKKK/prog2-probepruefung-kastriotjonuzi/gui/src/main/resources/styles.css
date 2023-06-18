@@ -1,0 +1,8 @@
+.label {
+    -fx-font: normal 14 sans-serif;
+    -fx-label-padding: 5 0 0 0;
+}
+#title {
+    -fx-font-weight: bold;
+    -fx-font-size: 18;
+}
